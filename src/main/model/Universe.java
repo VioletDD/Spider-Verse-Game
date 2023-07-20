@@ -25,6 +25,7 @@ public class Universe {
     }
 
     /*
+     * MODIFIES: this
      * EFFECTS: adds spider-man to the universe, change the counts for supporters or opponents
      */
     public void addSpiderMan(SpiderMan spiderMan) {
@@ -53,6 +54,7 @@ public class Universe {
     }
 
     /*
+     * MODIFIES: this
      * EFFECTS: reveals the universe's ending
      */
     public boolean revealResult() {

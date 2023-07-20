@@ -31,6 +31,7 @@ public class SpiderVerse {
 
     /*
      * REQUIRES: name has a non-zero length, universeID is non-negative
+     * MODIFIES: this
      * EFFECTS: add new spider-man character to this multi-universe, create the corresponding universe, categorizes
      * spider-man based on stance
      */
@@ -57,6 +58,7 @@ public class SpiderVerse {
         return currentUniverse;
     }
 
+    //MODIFIES: this
     //EFFECTS: categorizes universe based on ending
     public void sortUniverse(Universe universe) {
         if (universe.revealResult()) {
