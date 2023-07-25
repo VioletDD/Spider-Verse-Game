@@ -55,16 +55,12 @@ public class Universe {
 
     /*
      * MODIFIES: this
-     * EFFECTS: reveals the universe's ending
+     * EFFECTS: reveals the universe's ending, safe or collapsed
      */
     public boolean revealResult() {
         //to be edited later
         //if more numOpponents, the universe is safe
-        if (this.numOpponent >= this.numSupporter) {
-            this.ending = true;
-        } else {
-            this.ending = false;
-        }
+        this.ending = this.numOpponent >= this.numSupporter;
         return this.ending;
     }
 }

@@ -26,4 +26,7 @@ The users will be able to:
 - view the list of safe universes
 - view the list of collapsed universes
 - view the list of all universes
+- save my created characters to file (if I so choose)
+- load my previously created characters from file (if I so choose)
+
   

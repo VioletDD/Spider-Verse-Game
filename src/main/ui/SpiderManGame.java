@@ -132,8 +132,9 @@ public class SpiderManGame {
     private void doViewSpiderMan() {
         System.out.println("\nSpider heroes in all Universes:");
         for (SpiderMan spiderMan : spiderVerse.getAllSpiderMen()) {
-            String stance = (spiderMan.getStance() == true) ? "supporter" : "opponent";
-            System.out.println("\n" + spiderMan.getName() + "'s stance:" + stance);
+            String stance = spiderMan.getStance() ? "supporter" : "opponent";
+            int universeID = spiderMan.getUniverseID();
+            System.out.println("\n" + spiderMan.getName() + "'s stance: " + stance + ", in universe: " + universeID);
         }
     }
 
@@ -148,12 +149,14 @@ public class SpiderManGame {
         if (universe != null) {
             System.out.println("\nSpider heroes in Universe-" + universeID);
             for (SpiderMan spiderMan : universe.getSpiderMen()) {
-                String stance = (spiderMan.getStance() == true) ? "supporter" : "opponent";
+                String stance = spiderMan.getStance() ? "supporter" : "opponent";
                 System.out.println("\n" + spiderMan.getName() + "'s stance:" + stance);
             }
         }
     }
 
+    // EFFECTS: check if the universe with universeID exists.
+    //          if exists, returns the Universe object, otherwise return null
     private Universe checkUniverse(int universeID) {
         Universe currentUniverse = null;
         for (Universe universe : spiderVerse.getAllUniverses()) {
@@ -182,7 +185,7 @@ public class SpiderManGame {
         universeID = input.nextInt();
         System.out.println("\nChoose whether to be supporter or opponent of the canon event rule!");
         System.out.println("\n1 for supporter, 0 for opponent!");
-        stance = input.nextInt() == 1 ? true : false;
+        stance = input.nextInt() == 1;
         universe = spiderVerse.addCharacter(name,universeID,stance);
         spiderVerse.sortUniverse(universe);
         System.out.println("\nDone! Successfully created a new character!");
