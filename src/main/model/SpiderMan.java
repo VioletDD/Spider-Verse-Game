@@ -1,10 +1,10 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.json.JSONObject;
+import persistence.Writable;
 
 //represents spider-man with name, universeID, stance for the "canon event"
-public class SpiderMan {
+public class SpiderMan implements Writable {
     private String name;                   // the spider-man name
     private int universeID;                // the ID for the universe
     private boolean stance;                // the stance for "canon event", true for supporter, false for opponent
@@ -30,5 +30,14 @@ public class SpiderMan {
 
     public boolean getStance() {
         return this.stance;
+    }
+
+    // EFFECTS: returns the spider hero's name and stance as a JSON array
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", this.name);
+        json.put("stance", getStance() ? "supporter" : "opponent");
+        return json;
     }
 }

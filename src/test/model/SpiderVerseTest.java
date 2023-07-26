@@ -15,7 +15,7 @@ public class SpiderVerseTest {
 
     @BeforeEach
     void runBefore() {
-        spiderVerse = new SpiderVerse();
+        spiderVerse = new SpiderVerse("Danni's spider-verse");
     }
 
     @Test

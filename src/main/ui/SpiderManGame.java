@@ -3,21 +3,29 @@ package ui;
 import model.SpiderMan;
 import model.SpiderVerse;
 import model.Universe;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.HashSet;
 import java.util.Scanner;
+import java.util.Set;
 
 //Spider Man Game App
 public class SpiderManGame {
+    private static final String JSON_STORE = "./data/spiderVerse.json";
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
     private Scanner input;
     private SpiderVerse spiderVerse;
     private Universe universe;
-    private Universe universe1;
-    private Universe universe2;
-    private Universe universe3;
-    private Universe universe4;
+    private Set<String> names;
 
     // EFFECTS: runs the spider-man game application
-    public SpiderManGame() {
+    public SpiderManGame() throws FileNotFoundException {
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
         runSpiderMan();
     }
 
@@ -55,6 +63,8 @@ public class SpiderManGame {
         System.out.println("\t6 -> view the list of safe universes");
         System.out.println("\t7 -> view the list of collapsed universes");
         System.out.println("\t8 -> view the list of all universes");
+        System.out.println("\t9 -> save created spider hero(es) to file");
+        System.out.println("\t10 -> load created spider hero(es) from file");
         System.out.println("\tq -> quit");
     }
 
@@ -77,8 +87,38 @@ public class SpiderManGame {
             doViewCollapsedUniverses();
         } else if (command.equals("8")) {
             doViewAllUniverses();
+        } else if (command.equals("9")) {
+            saveSpiderVerse();
+        } else if (command.equals("10")) {
+            loadSpiderVerse();
         } else {
             System.out.println("Selection not valid...");
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: loads spider-verse from file, add character names to the names list in case duplicate
+    private void loadSpiderVerse() {
+        try {
+            spiderVerse = jsonReader.read();
+            System.out.println("Loaded " + spiderVerse.getName() + " from " + JSON_STORE);
+            for (SpiderMan spider : spiderVerse.getAllSpiderMen()) {
+                this.names.add(spider.getName());
+            }
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
+        }
+    }
+
+    // EFFECTS: saves the spider-verse to file
+    private void saveSpiderVerse() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(spiderVerse);
+            jsonWriter.close();
+            System.out.println("Saved " + spiderVerse.getName() + " to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
         }
     }
 
@@ -87,7 +127,8 @@ public class SpiderManGame {
     private void doViewAllUniverses() {
         System.out.println("\nAll existing universes:");
         for (Universe universe : spiderVerse.getAllUniverses()) {
-            System.out.println("\nUniverse-" + universe.getUniverseID());
+            String status = universe.revealResult() ? " (safe)" : " (collapsed)";
+            System.out.println("\nUniverse-" + universe.getUniverseID() + status);
         }
     }
 
@@ -181,6 +222,11 @@ public class SpiderManGame {
         boolean stance;
         System.out.println("\nCreate a name");
         name = input.next();
+        while (this.names.contains(name)) {
+            System.out.println("Name already exists, please choose another one");
+            name = input.next();
+        }
+        this.names.add(name);
         System.out.println("\nInput a universeID you want to live!");
         universeID = input.nextInt();
         System.out.println("\nChoose whether to be supporter or opponent of the canon event rule!");
@@ -194,19 +240,10 @@ public class SpiderManGame {
     // MODIFIES: this
     // EFFECTS: initializes spider-verse with several characters
     private void init() {
-        spiderVerse = new SpiderVerse();
+        spiderVerse = new SpiderVerse("Danni's spider-verse");
+        names = new HashSet<>();
         input = new Scanner(System.in);
         input.useDelimiter("\n");
-
-        universe1 = spiderVerse.addCharacter("Mary",0,true);
-        universe2 = spiderVerse.addCharacter("Terry",0,false);
-        universe3 = spiderVerse.addCharacter("Shivansh",1,false);
-        universe4 = spiderVerse.addCharacter("Danni",2,true);
-
-        spiderVerse.sortUniverse(universe1);
-        spiderVerse.sortUniverse(universe2);
-        spiderVerse.sortUniverse(universe3);
-        spiderVerse.sortUniverse(universe4);
     }
 }
 

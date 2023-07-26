@@ -1,10 +1,14 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.util.ArrayList;
 import java.util.List;
 
 //represents the universe in multi-universe world with universeID
-public class Universe {
+public class Universe implements Writable {
     private int universeID;                // the ID for the universe
     private boolean ending;                // the ending for the universe, true for safe, false for collapsed
     private int numSupporter;              // the number of supporters in the universe
@@ -62,5 +66,23 @@ public class Universe {
         //if more numOpponents, the universe is safe
         this.ending = this.numOpponent >= this.numSupporter;
         return this.ending;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("Universe ID", this.universeID);
+        json.put("spider hero(es)", spidersToJson());
+        return json;
+    }
+
+    // EFFECTS: returns all spider heroes in this universe as a JSON array
+    private JSONArray spidersToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (SpiderMan spider : this.spiderMen) {
+            jsonArray.put(spider.toJson());
+        }
+        return jsonArray;
     }
 }
