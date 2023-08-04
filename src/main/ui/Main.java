@@ -7,7 +7,7 @@ public class Main {
         try {
             new SpiderManGame();
         } catch (FileNotFoundException e) {
-            System.out.println("Unable to run application: file not found");
+            System.out.println("Unable to run application: file not found!");
         }
     }
 }

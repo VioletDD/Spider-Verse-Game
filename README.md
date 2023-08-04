@@ -29,4 +29,16 @@ The users will be able to:
 - save my created characters to file (if I so choose)
 - load my previously created characters from file (if I so choose)
 
+# Instructions for Grader
+
+- You can create a new spider hero character by clicking the "Create a New Spider Hero"
+button on the Control Panel
+- You can create more spider hero characters by doing the same procedures
+mentioned above
+- You can locate my visual component by...
+- You can save the game status by clicking the
+"Save game" button on the Control Panel
+- You can reload the previously saved game status by clicking the
+"Load game" button on the Control Panel
+
   

@@ -9,6 +9,7 @@ import persistence.JsonWriter;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashSet;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -222,23 +223,70 @@ public class SpiderManGame {
         boolean stance;
         System.out.println("\nCreate a name");
         name = input.next();
-        while (this.names.contains(name)) {
-            System.out.println("Name already exists, please choose another one");
-            name = input.next();
-        }
+        checkName(name);
         this.names.add(name);
-        System.out.println("\nInput a universeID you want to live!");
-        universeID = input.nextInt();
-        System.out.println("\nChoose whether to be supporter or opponent of the canon event rule!");
-        System.out.println("\n1 for supporter, 0 for opponent!");
-        stance = input.nextInt() == 1;
+        universeID = checkUniverseID();
+        stance = checkStance();
         universe = spiderVerse.addCharacter(name,universeID,stance);
         spiderVerse.sortUniverse(universe);
         System.out.println("\nDone! Successfully created a new character!");
     }
 
+    //MODIFIES: this
+    //EFFECTS: check if the input character's name is already exists or not, if already exists, prompt
+    //         the user to input another one
+    private void checkName(String name) {
+        while (this.names.contains(name)) {
+            System.out.println("Name already exists, please choose another one!");
+            name = input.next();
+        }
+    }
+
+    //MODIFIES: this
+    //EFFECTS: check if the input stance is valid or no, has to be either 0 or 1. If out of range, prompt
+    //         the user to input again
+    private boolean checkStance() {
+        boolean stance;
+        try {
+            System.out.println("\nChoose whether to be supporter or opponent of the canon event rule!");
+            System.out.println("\n1 for supporter, 0 for opponent!");
+            int numStance = input.nextInt();
+            while (numStance != 1 && numStance != 0) {
+                System.out.println("\nInput not valid, 1 for supporter, 0 for opponent!");
+                numStance = input.nextInt();
+            }
+            return numStance == 1;
+        } catch (InputMismatchException e) {
+            System.out.println("\nInput type invalid!");
+            input.next();
+            stance = checkStance();
+        }
+        return stance;
+    }
+
+    //MODIFIES: this
+    //EFFECTS: check if the input universe ID is valid or no, has to be non-negative integer. If not valid, prompt
+    //         the user to input again
+    private int checkUniverseID() {
+        int universeID;
+        try {
+            System.out.println("\nInput a universeID you want to live! (non-negative integer)");
+            universeID = input.nextInt();
+            while (universeID < 0) {
+                System.out.println("\nInput not valid, choose a non-negative integer!");
+                universeID = input.nextInt();
+            }
+            return universeID;
+        } catch (InputMismatchException e) {
+            System.out.println("\nInput type invalid!");
+            input.next();
+            universeID = checkUniverseID();
+        }
+        return universeID;
+    }
+
     // MODIFIES: this
-    // EFFECTS: initializes spider-verse with several characters
+    // EFFECTS: initializes spider-verse
     private void init() {
         spiderVerse = new SpiderVerse("Danni's spider-verse");
         names = new HashSet<>();
