@@ -32,13 +32,28 @@ The users will be able to:
 # Instructions for Grader
 
 - You can create a new spider hero character by clicking the "Create a New Spider Hero"
-button on the Control Panel
+button on the Control Panel, and input name, universe ID you want to live, and stance
+for supporter or opponent for the "canon event"
 - You can create more spider hero characters by doing the same procedures
 mentioned above
-- You can locate my visual component by...
 - You can save the game status by clicking the
 "Save game" button on the Control Panel
-- You can reload the previously saved game status by clicking the
+- You can load the previously saved game status by clicking the
 "Load game" button on the Control Panel
+- You can view the spider hero(es) in a given universe by clicking the
+"View Spider heroes by universe ID" button on the Control Panel and input the 
+universe ID
+- You can view the spider heroes in all universes by clicking the
+  "View Spider heroes in all universes" button on the Control Panel 
+- You can view the spider heroes that are supporters in all universes by clicking the
+"View supporters in all universes" button on the Control Panel
+- You can view the spider heroes that are opponents in all universes by clicking the
+  "View opponents in all universes" button on the Control Panel
+- You can view all the safe universes by clicking the
+  "View safe universes" button on the Control Panel
+- You can view all the collapsed universes by clicking the
+  "View collapsed universes" button on the Control Panel
+- You can view all the universes by clicking the
+  "View all universes" button on the Control Panel
 
   
