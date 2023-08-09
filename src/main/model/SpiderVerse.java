@@ -53,6 +53,8 @@ public class SpiderVerse implements Writable {
         if (currentUniverse == null) {
             currentUniverse = new Universe(universeID);
             this.allUniverses.add(currentUniverse);
+            String string = "\tUniverse - " + universeID + " now has its first spider hero!";
+            EventLog.getInstance().logEvent(new Event(string));
         }
         currentUniverse.addSpiderMan(spiderMan);
         this.allSpiderMen.add(spiderMan);
@@ -108,6 +110,7 @@ public class SpiderVerse implements Writable {
         return this.name;
     }
 
+    // EFFECTS: returns this as JSON object
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();

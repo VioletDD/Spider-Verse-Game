@@ -1,5 +1,8 @@
 package ui;
 
+
+import model.Event;
+import model.EventLog;
 import model.SpiderMan;
 import model.SpiderVerse;
 import model.Universe;
@@ -8,12 +11,8 @@ import persistence.JsonWriter;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -21,7 +20,8 @@ import java.net.URL;
 import java.util.HashSet;
 import java.util.Set;
 
-public class SpiderManGameUI extends JFrame {
+//GUI application of Spider-Man Game
+public class SpiderManGameUI extends JFrame implements WindowListener {
     private static final String JSON_STORE = "./data/spiderVerse.json";
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
@@ -36,6 +36,7 @@ public class SpiderManGameUI extends JFrame {
     private static final int HEIGHT = 600;
     private BufferedImage img;
 
+    //EFFECTS: initialize the Spider Game GUI window with functions displayed in buttons
     public SpiderManGameUI()  throws FileNotFoundException {
         init();
         readImage();
@@ -50,16 +51,73 @@ public class SpiderManGameUI extends JFrame {
 
         addButtonPanel();
 
+        EventLog.getInstance();
+
         controlPanel.pack();
         controlPanel.setVisible(true);
         desktop.add(controlPanel);
+
+        addWindowListener(this);
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         centreOnScreen();
         setVisible(true);
     }
 
-    //EFFECTS:
+    @Override
+    public void windowOpened(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowClosing(WindowEvent e) {
+        for (Event next : EventLog.getInstance()) {
+            System.out.println(next.toString());
+        }
+        //A pause so user can see the message before
+        //the window actually closes.
+        ActionListener task = new ActionListener() {
+            boolean alreadyDisposed = false;
+            public void actionPerformed(ActionEvent e) {
+                if (controlPanel.isDisplayable()) {
+                    alreadyDisposed = true;
+                    controlPanel.dispose();
+                }
+            }
+        };
+        Timer timer = new Timer(500, task); //fire every half second
+        timer.setInitialDelay(2000);        //first delay 2 seconds
+        timer.setRepeats(false);
+        timer.start();
+    }
+
+    @Override
+    public void windowClosed(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowIconified(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowDeiconified(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowActivated(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowDeactivated(WindowEvent e) {
+
+    }
+
+    //MODIFIES: this
+    //EFFECTS: initialize the application background
     private void initializeBackground() {
         desktop = new JDesktopPane() {
             @Override
@@ -94,7 +152,8 @@ public class SpiderManGameUI extends JFrame {
     }
 
     /**
-     * Helper to centre main application window on desktop
+     * MODIFIES: this
+     * EFFECTS: Helper to centre main application window on desktop
      */
     private void centreOnScreen() {
         int width = Toolkit.getDefaultToolkit().getScreenSize().width;
@@ -102,8 +161,9 @@ public class SpiderManGameUI extends JFrame {
         setLocation((width - getWidth()) / 2, (height - getHeight()) / 2);
     }
 
+
     /**
-     * Represents action to be taken when user clicks desktop
+     * EFFECTS: Represents action to be taken when user clicks desktop
      * to switch focus. (Needed for key handling.)
      */
     private class DesktopFocusAction extends MouseAdapter {
@@ -114,7 +174,7 @@ public class SpiderManGameUI extends JFrame {
     }
 
     /**
-     * Helper to add control buttons.
+     * EFFECTS: Helper to add control buttons.
      */
     private void addButtonPanel() {
         JPanel buttonPanel = new JPanel();
@@ -136,16 +196,8 @@ public class SpiderManGameUI extends JFrame {
     }
 
     /**
-     * Helper to create print options combo box
-     * @return  the combo box
-     */
-    private JComboBox<String> createPrintCombo() {
-        printCombo = new JComboBox<String>();
-        return printCombo;
-    }
-
-    /**
-     * Represents the action to be taken when the user wants to add a new
+     * MODIFIES: this
+     * EFFECTS: Represents the action to be taken when the user wants to add a new
      * spider hero character to the Spider-Verse.
      */
     private class AddSpiderHero extends AbstractAction {
@@ -222,7 +274,6 @@ public class SpiderManGameUI extends JFrame {
 
         //EFFECTS: check if the input stance is valid or no, has to be either 0 or 1. If out of range, throws Exception
         private boolean checkStance(int numStance) throws Exception {
-            boolean stance;
             if (numStance != 1 && numStance != 0) {
                 throw new Exception("Stance input not valid, 1 for supporter, 0 for opponent!");
             }
@@ -231,7 +282,8 @@ public class SpiderManGameUI extends JFrame {
     }
 
     /**
-     * Represents the action to be taken when the user wants to save the
+     * MODIFIES: this
+     * EFFECTS: Represents the action to be taken when the user wants to save the
      * current game status in the Spider-Verse.
      */
     private class SaveSpiderVerse extends AbstractAction {
@@ -257,7 +309,8 @@ public class SpiderManGameUI extends JFrame {
     }
 
     /**
-     * Represents the action to be taken when the user wants to load the
+     * MODIFIES: this
+     * EFFECTS: Represents the action to be taken when the user wants to load the
      * previously saved game status in the Spider-Verse.
      */
     private class LoadSpiderVerse extends AbstractAction {
@@ -286,7 +339,7 @@ public class SpiderManGameUI extends JFrame {
     }
 
     /**
-     * Represents the action to be taken when the user wants to view
+     * EFFECTS: Represents the action to be taken when the user wants to view
      * the existing spider heroes in a specific universe
      */
     private class ViewSpiderHero extends AbstractAction {
@@ -353,7 +406,7 @@ public class SpiderManGameUI extends JFrame {
     }
 
     /**
-     * Represents the action to be taken when the user wants to view
+     * EFFECTS: Represents the action to be taken when the user wants to view
      * the existing spider heroes in all existing universes
      */
     private class ViewSpiderHeroes extends AbstractAction {
@@ -380,7 +433,7 @@ public class SpiderManGameUI extends JFrame {
     }
 
     /**
-     * Represents the action to be taken when the user wants to view
+     * EFFECTS: Represents the action to be taken when the user wants to view
      * the all the spider heroes that are supporters for the canon event
      */
     private class ViewSupporters extends AbstractAction {
@@ -405,7 +458,7 @@ public class SpiderManGameUI extends JFrame {
     }
 
     /**
-     * Represents the action to be taken when the user wants to view
+     * EFFECTS: Represents the action to be taken when the user wants to view
      * the all the spider heroes that are opponents for the canon event
      */
     private class ViewOpponents extends AbstractAction {
@@ -430,7 +483,7 @@ public class SpiderManGameUI extends JFrame {
     }
 
     /**
-     * Represents the action to be taken when the user wants to view
+     * EFFECTS: Represents the action to be taken when the user wants to view
      * the safe universe(s)
      */
     private class ViewSafeUniverse extends AbstractAction {
@@ -455,7 +508,7 @@ public class SpiderManGameUI extends JFrame {
     }
 
     /**
-     * Represents the action to be taken when the user wants to view
+     * EFFECTS: Represents the action to be taken when the user wants to view
      * the collapsed universe(s)
      */
     private class ViewCollapsedUniverse extends AbstractAction {
@@ -480,7 +533,7 @@ public class SpiderManGameUI extends JFrame {
     }
 
     /**
-     * Represents the action to be taken when the user wants to view
+     * EFFECTS: Represents the action to be taken when the user wants to view
      * all the existing universes
      */
     private class ViewAllUniverses extends AbstractAction {
@@ -521,7 +574,7 @@ public class SpiderManGameUI extends JFrame {
         }
     }
 
-    //EFFECTS: Get a image to show in the splash window
+    //EFFECTS: Get an image to show in the splash window
     public static class SplashJava extends JWindow {
         Image splashScreen;
         ImageIcon imageIcon;
@@ -548,7 +601,7 @@ public class SpiderManGameUI extends JFrame {
             setVisible(true);
         }
 
-        // Paint image onto JWindow
+        // EFFECTS: Paint image onto JWindow
         public void paint(Graphics g) {
             super.paint(g);
             g.drawImage(splashScreen, 0, 0, this);

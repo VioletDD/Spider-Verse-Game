@@ -39,6 +39,11 @@ public class Universe implements Writable {
         } else {
             this.numOpponent++;
         }
+        String stance = spiderMan.getStance() ? "Supporter" : "Opponent";
+        String string = "\tCreated a new character: " + spiderMan.getName()
+                + ", Universe ID: " + spiderMan.getUniverseID()
+                + ", Stance: " + stance;
+        EventLog.getInstance().logEvent(new Event(string));
     }
 
     public int getUniverseID() {
@@ -68,6 +73,7 @@ public class Universe implements Writable {
         return this.ending;
     }
 
+    // EFFECTS: returns this as JSON object
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();

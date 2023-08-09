@@ -56,4 +56,17 @@ universe ID
 - You can view all the universes by clicking the
   "View all universes" button on the Control Panel
 
+# Phase 4: Task 2
+Sample of the events that occur when this program runs:
+- Wed Aug 09 11:09:26 PDT 2023
+  - Universe - 1 now has its first spider hero!
+- Wed Aug 09 11:09:26 PDT 2023
+  - Created a new character: Jack, Universe ID: 1, Stance: Opponent
+- Wed Aug 09 11:09:31 PDT 2023
+  - Universe - 2 now has its first spider hero!
+- Wed Aug 09 11:09:31 PDT 2023
+  - Created a new character: Amy, Universe ID: 2, Stance: Supporter
+- Wed Aug 09 11:09:37 PDT 2023
+  - Created a new character: Terry, Universe ID: 2, Stance: Opponent
+
   
