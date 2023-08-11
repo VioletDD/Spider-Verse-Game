@@ -25,10 +25,9 @@ public class SpiderManGameUI extends JFrame implements WindowListener {
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
     private SpiderVerse spiderVerse;
-    private Universe universe;
     private Set<String> names;
+    private EventLog eventLog;
 
-    private JComboBox<String> printCombo;
     private JDesktopPane desktop;
     private JInternalFrame controlPanel;
     private static final int WIDTH = 800;
@@ -50,7 +49,7 @@ public class SpiderManGameUI extends JFrame implements WindowListener {
 
         addButtonPanel();
 
-        EventLog.getInstance();
+        eventLog = EventLog.getInstance();
 
         controlPanel.pack();
         controlPanel.setVisible(true);
@@ -242,7 +241,7 @@ public class SpiderManGameUI extends JFrame implements WindowListener {
                 int numStance = Integer.parseInt(stance.getText());
                 boolean stancebl;
                 stancebl = checkStance(numStance);
-                universe = spiderVerse.addCharacter(namestr, id, stancebl);
+                Universe universe = spiderVerse.addCharacter(namestr, id, stancebl);
                 spiderVerse.sortUniverse(universe);
                 JOptionPane.showMessageDialog(null, "Done! Successfully created a new character!", "Done",
                         JOptionPane.INFORMATION_MESSAGE);
@@ -558,7 +557,7 @@ public class SpiderManGameUI extends JFrame implements WindowListener {
     }
 
     //EFFECTS: start the Spider-Man Game application with a splash image
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) {
         try {
             SplashJava splash = new SplashJava();
             // Make JWindow appear for 10 seconds before disappear

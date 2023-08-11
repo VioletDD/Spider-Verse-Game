@@ -64,12 +64,20 @@ public class Universe implements Writable {
 
     /*
      * MODIFIES: this
-     * EFFECTS: reveals the universe's ending, safe or collapsed
+     * EFFECTS: reveals the universe's ending, safe or collapsed, if there are
+     * 2 or more spider heroes and number of supporters > number of opponents, the universe will be collapsed
      */
     public boolean revealResult() {
-        //to be edited later
-        //if more numOpponents, the universe is safe
-        this.ending = this.numOpponent >= this.numSupporter;
+        if (!this.ending) {
+            //do nothing
+        } else if (this.spiderMen.size() >= 2 && this.numOpponent < this.numSupporter) {
+            this.ending = false;
+            String string = "\tUniverse - " + this.universeID + "is now collapsed!";
+            EventLog.getInstance().logEvent(new Event(string));
+        } else {
+            this.ending = true;
+        }
+
         return this.ending;
     }
 

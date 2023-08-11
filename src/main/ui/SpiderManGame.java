@@ -20,7 +20,6 @@ public class SpiderManGame {
     private JsonReader jsonReader;
     private Scanner input;
     private SpiderVerse spiderVerse;
-    private Universe universe;
     private Set<String> names;
 
     // EFFECTS: runs the spider-man game application
@@ -227,7 +226,7 @@ public class SpiderManGame {
         this.names.add(name);
         universeID = checkUniverseID();
         stance = checkStance();
-        universe = spiderVerse.addCharacter(name,universeID,stance);
+        Universe universe = spiderVerse.addCharacter(name,universeID,stance);
         spiderVerse.sortUniverse(universe);
         System.out.println("\nDone! Successfully created a new character!");
     }
