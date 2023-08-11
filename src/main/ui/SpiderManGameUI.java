@@ -266,6 +266,12 @@ public class SpiderManGameUI extends JFrame implements WindowListener {
         private void checkUniverseID(int universeID) throws Exception {
             if (universeID < 0) {
                 throw new Exception("UniverseID not valid, please choose a non-negative integer!");
+            } else {
+                for (Universe universe : spiderVerse.getAllUniverses()) {
+                    if (universe.getUniverseID() == universeID && !universe.revealResult()) {
+                        throw new Exception("This universe already collapsed! Please choose another one!");
+                    }
+                }
             }
 
         }

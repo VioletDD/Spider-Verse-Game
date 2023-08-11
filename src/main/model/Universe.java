@@ -72,7 +72,7 @@ public class Universe implements Writable {
             //do nothing
         } else if (this.spiderMen.size() >= 3 && this.numOpponent < this.numSupporter) {
             this.ending = false;
-            String string = "\tUniverse - " + this.universeID + "is now collapsed!";
+            String string = "\tUniverse - " + this.universeID + " is now collapsed!";
             EventLog.getInstance().logEvent(new Event(string));
         } else {
             this.ending = true;
