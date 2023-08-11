@@ -1,0 +1,32 @@
+{
+    "name": "My spider-verse",
+    "universes": [
+        {
+            "spider hero(es)": [{
+                "name": "Shivansh",
+                "stance": "opponent"
+            }],
+            "Universe ID": 1
+        },
+        {
+            "spider hero(es)": [
+                {
+                    "name": "Mary",
+                    "stance": "supporter"
+                },
+                {
+                    "name": "Terry",
+                    "stance": "opponent"
+                }
+            ],
+            "Universe ID": 0
+        },
+        {
+            "spider hero(es)": [{
+                "name": "Danni",
+                "stance": "supporter"
+            }],
+            "Universe ID": 2
+        }
+    ]
+}

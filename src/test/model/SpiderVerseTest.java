@@ -50,9 +50,9 @@ public class SpiderVerseTest {
     @Test
     void testSortUniverse() {
         universe1 = spiderVerse.addCharacter("Mary",0,true);
-        universe2 = spiderVerse.addCharacter("Terry",0,false);
-        universe3 = spiderVerse.addCharacter("Shivansh",1,false);
-        universe4 = spiderVerse.addCharacter("Danni",2,true);
+        universe2 = spiderVerse.addCharacter("Terry",0,true);
+        universe3 = spiderVerse.addCharacter("Shivansh",0,false);
+        universe4 = spiderVerse.addCharacter("Danni",1,true);
 
         spiderVerse.sortUniverse(universe1);
         spiderVerse.sortUniverse(universe2);
@@ -60,6 +60,6 @@ public class SpiderVerseTest {
         spiderVerse.sortUniverse(universe4);
 
         assertEquals(1, spiderVerse.getCollapsedUniverses().size());
-        assertEquals(2, spiderVerse.getSafeUniverses().size());
+        assertEquals(1, spiderVerse.getSafeUniverses().size());
     }
 }

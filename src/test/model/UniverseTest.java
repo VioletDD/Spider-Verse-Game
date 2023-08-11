@@ -89,6 +89,42 @@ public class UniverseTest {
 
         assertTrue(universe1.revealResult());
         assertTrue(universe2.revealResult());
-        assertFalse(universe3.revealResult());
+        assertTrue(universe3.revealResult());
+    }
+
+    @Test
+    void testRevealResultCollapsed() {
+        spiderMan1 = new SpiderMan("Mary",0,true);
+        spiderMan2 = new SpiderMan("Terry",0,true);
+        spiderMan3 = new SpiderMan("Shivansh",0,false);
+
+        universe1.addSpiderMan(spiderMan1);
+        universe1.addSpiderMan(spiderMan2);
+        universe1.addSpiderMan(spiderMan3);
+
+        assertFalse(universe1.revealResult());
+
+        spiderMan4 = new SpiderMan("Jack",0,false);
+        universe1.addSpiderMan(spiderMan4);
+        assertFalse(universe1.revealResult());
+    }
+
+    @Test
+    void testRevealResultSafe() {
+        spiderMan1 = new SpiderMan("Mary",0,false);
+        spiderMan2 = new SpiderMan("Terry",0,false);
+        spiderMan3 = new SpiderMan("Shivansh",0,true);
+
+        universe1.addSpiderMan(spiderMan1);
+        universe1.addSpiderMan(spiderMan2);
+        universe1.addSpiderMan(spiderMan3);
+
+        assertTrue(universe1.revealResult());
+
+        spiderMan4 = new SpiderMan("Jack",0,true);
+        SpiderMan spiderMan5 = new SpiderMan("Tom",0,true);
+        universe1.addSpiderMan(spiderMan4);
+        universe1.addSpiderMan(spiderMan5);
+        assertFalse(universe1.revealResult());
     }
 }

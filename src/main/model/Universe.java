@@ -70,7 +70,7 @@ public class Universe implements Writable {
     public boolean revealResult() {
         if (!this.ending) {
             //do nothing
-        } else if (this.spiderMen.size() >= 2 && this.numOpponent < this.numSupporter) {
+        } else if (this.spiderMen.size() >= 3 && this.numOpponent < this.numSupporter) {
             this.ending = false;
             String string = "\tUniverse - " + this.universeID + "is now collapsed!";
             EventLog.getInstance().logEvent(new Event(string));
