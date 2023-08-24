@@ -2,7 +2,7 @@
 <img src="SpiderMan_icon.png" width="200" height="200">
 
 ## Background
-This project is inspired by the **Marvel Spider-Man** movies. Spider-Verse is a multiverse
+This desktop GUI simple game is inspired by the **Marvel Spider-Man** movies. Spider-Verse is a multiverse
 that connects all versions of Spider-Man from across the multiverse.
 The idea is that every universe that has a Spider hero they are part of this great web.
 
@@ -30,7 +30,7 @@ The users will be able to:
 - save my created characters to file (if I so choose)
 - load my previously created characters from file (if I so choose)
 
-# Instructions for Grader
+# Instructions for Player
 
 - You can create a new spider hero character by clicking the "Create a New Spider Hero"
 button on the Control Panel, and input name, universe ID you want to live, and stance
@@ -57,7 +57,7 @@ universe ID
 - You can view all the universes by clicking the
   "View all universes" button on the Control Panel
 
-# Phase 4: Task 2
+# Event Log
 Sample of the events that occur when this program runs:
 - Wed Aug 09 11:09:26 PDT 2023
   - Universe - 1 now has its first spider hero!
@@ -70,7 +70,7 @@ Sample of the events that occur when this program runs:
 - Wed Aug 09 11:09:37 PDT 2023
   - Created a new character: Terry, Universe ID: 2, Stance: Opponent
 
-# Phase 4: Task 3
+# UML Design
 Refactored some of the structure, such as deleted the single Universe field in 
 SpiderVerse class but leave Universe set field untouched. This is because one
 SpiderVerse contains a set of universes, it would be redundant to add
@@ -81,5 +81,8 @@ SpiderVerse, because SpiderMan should only be part of the Universe
 class, I can get it in SpiderVerse just by calling getter method in the 
 Universe set field so as to make the UML diagram clearer.
 ![UMLDiagran](UML_Design_Diagram.png)
+
+# Menu Screenshot
+![Menu](Menu_ss.png)
 
   
